@@ -27,7 +27,7 @@ npm install d-bus-message-protocol d-bus-type-system
 - Designed from the ground up with TypeScript.
 - 100% test coverage.
 - Depends solely on
-  [`d-bus-type-system`](https://github.com/clebert/d-bus-type-system).
+  [d-bus-type-system](https://github.com/clebert/d-bus-type-system).
 - Runs in any ES2020 environment. Uses `ArrayBuffer` and `bigint` under the
   hood.
 - Accurate implementation of the
