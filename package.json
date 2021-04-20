@@ -1,6 +1,6 @@
 {
   "name": "d-bus-message-protocol",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "A TypeScript implementation of the D-Bus message protocol.",
   "bugs": {
     "url": "https://github.com/clebert/d-bus-message-protocol/issues"
