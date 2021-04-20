@@ -19,7 +19,7 @@
 ## Installation
 
 ```
-npm install d-bus-message-protocol
+npm install d-bus-message-protocol d-bus-type-system
 ```
 
 ## Features
