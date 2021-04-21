@@ -21,8 +21,8 @@ export type Message =
 export interface MethodCallMessage extends AbstractMessage {
   readonly messageType: MessageType.MethodCall;
   readonly path: string;
-  readonly interface?: string;
-  readonly member: string;
+  readonly interfaceName?: string;
+  readonly memberName: string;
 }
 
 export interface MethodReturnMessage extends AbstractMessage {
@@ -39,8 +39,8 @@ export interface ErrorMessage extends AbstractMessage {
 export interface SignalMessage extends AbstractMessage {
   readonly messageType: MessageType.Signal;
   readonly path: string;
-  readonly interface: string;
-  readonly member: string;
+  readonly interfaceName: string;
+  readonly memberName: string;
 }
 
 export interface AbstractMessage {
@@ -133,12 +133,16 @@ export function parseMessage(messageReader: BufferReader): Message {
         ...message,
         messageType,
         path: getHeaderField(headerFields, HeaderFieldCode.Path, true),
-        interface: getHeaderField(
+        interfaceName: getHeaderField(
           headerFields,
-          HeaderFieldCode.Interface,
+          HeaderFieldCode.InterfaceName,
           false
         ),
-        member: getHeaderField(headerFields, HeaderFieldCode.Member, true),
+        memberName: getHeaderField(
+          headerFields,
+          HeaderFieldCode.MemberName,
+          true
+        ),
       };
     }
     case MessageType.MethodReturn: {
@@ -173,12 +177,16 @@ export function parseMessage(messageReader: BufferReader): Message {
         ...message,
         messageType,
         path: getHeaderField(headerFields, HeaderFieldCode.Path, true),
-        interface: getHeaderField(
+        interfaceName: getHeaderField(
           headerFields,
-          HeaderFieldCode.Interface,
+          HeaderFieldCode.InterfaceName,
           true
         ),
-        member: getHeaderField(headerFields, HeaderFieldCode.Member, true),
+        memberName: getHeaderField(
+          headerFields,
+          HeaderFieldCode.MemberName,
+          true
+        ),
       };
     }
   }

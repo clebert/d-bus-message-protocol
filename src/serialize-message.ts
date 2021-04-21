@@ -80,16 +80,16 @@ export function serializeMessage(message: Message): ArrayBuffer {
         [serializeType(objectPathType), message.path],
       ]);
 
-      if (message.interface !== undefined) {
+      if (message.interfaceName !== undefined) {
         headerFields.push([
-          HeaderFieldCode.Interface,
-          [serializeType(stringType), message.interface],
+          HeaderFieldCode.InterfaceName,
+          [serializeType(stringType), message.interfaceName],
         ]);
       }
 
       headerFields.push([
-        HeaderFieldCode.Member,
-        [serializeType(stringType), message.member],
+        HeaderFieldCode.MemberName,
+        [serializeType(stringType), message.memberName],
       ]);
 
       break;

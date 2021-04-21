@@ -9,8 +9,8 @@ import {
 
 export enum HeaderFieldCode {
   Path = 1,
-  Interface = 2,
-  Member = 3,
+  InterfaceName = 2,
+  MemberName = 3,
   ErrorName = 4,
   ReplySerial = 5,
   Destination = 6,
@@ -28,8 +28,8 @@ export function getHeaderField<
   required: TRequired
 ): THeaderFieldCode extends
   | HeaderFieldCode.Path
-  | HeaderFieldCode.Interface
-  | HeaderFieldCode.Member
+  | HeaderFieldCode.InterfaceName
+  | HeaderFieldCode.MemberName
   | HeaderFieldCode.ErrorName
   | HeaderFieldCode.Destination
   | HeaderFieldCode.Sender
@@ -72,8 +72,8 @@ export function getHeaderField(
 
       return value;
     }
-    case HeaderFieldCode.Interface:
-    case HeaderFieldCode.Member:
+    case HeaderFieldCode.InterfaceName:
+    case HeaderFieldCode.MemberName:
     case HeaderFieldCode.ErrorName:
     case HeaderFieldCode.Destination:
     case HeaderFieldCode.Sender: {
