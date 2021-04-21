@@ -4,7 +4,7 @@ const {MessageType, serializeMessage, parseMessages} = require('./lib/cjs');
 
 const messageData = serializeMessage({
   messageType: MessageType.MethodCall,
-  path: '/org/freedesktop/DBus',
+  objectPath: '/org/freedesktop/DBus',
   interfaceName: 'org.freedesktop.DBus',
   memberName: 'Hello',
   serial: 1,

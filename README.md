@@ -42,7 +42,7 @@ import {MessageType, serializeMessage} from 'd-bus-message-protocol';
 
 const messageData = serializeMessage({
   messageType: MessageType.MethodCall,
-  path: '/org/freedesktop/DBus',
+  objectPath: '/org/freedesktop/DBus',
   interfaceName: 'org.freedesktop.DBus',
   memberName: 'Hello',
   serial: 1,
@@ -77,7 +77,7 @@ console.log(JSON.stringify(messages));
 [
   {
     "messageType": 1,
-    "path": "/org/freedesktop/DBus",
+    "objectPath": "/org/freedesktop/DBus",
     "interfaceName": "org.freedesktop.DBus",
     "memberName": "Hello",
     "serial": 1,

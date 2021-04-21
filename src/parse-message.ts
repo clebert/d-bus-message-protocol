@@ -20,7 +20,7 @@ export type Message =
 
 export interface MethodCallMessage extends AbstractMessage {
   readonly messageType: MessageType.MethodCall;
-  readonly path: string;
+  readonly objectPath: string;
   readonly interfaceName?: string;
   readonly memberName: string;
 }
@@ -38,7 +38,7 @@ export interface ErrorMessage extends AbstractMessage {
 
 export interface SignalMessage extends AbstractMessage {
   readonly messageType: MessageType.Signal;
-  readonly path: string;
+  readonly objectPath: string;
   readonly interfaceName: string;
   readonly memberName: string;
 }
@@ -132,7 +132,11 @@ export function parseMessage(messageReader: BufferReader): Message {
       return {
         ...message,
         messageType,
-        path: getHeaderField(headerFields, HeaderFieldCode.Path, true),
+        objectPath: getHeaderField(
+          headerFields,
+          HeaderFieldCode.ObjectPath,
+          true
+        ),
         interfaceName: getHeaderField(
           headerFields,
           HeaderFieldCode.InterfaceName,
@@ -176,7 +180,11 @@ export function parseMessage(messageReader: BufferReader): Message {
       return {
         ...message,
         messageType,
-        path: getHeaderField(headerFields, HeaderFieldCode.Path, true),
+        objectPath: getHeaderField(
+          headerFields,
+          HeaderFieldCode.ObjectPath,
+          true
+        ),
         interfaceName: getHeaderField(
           headerFields,
           HeaderFieldCode.InterfaceName,

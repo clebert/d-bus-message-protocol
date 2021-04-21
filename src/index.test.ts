@@ -36,7 +36,7 @@ test('parse messages of all types', () => {
   ).toEqual([
     {
       messageType: MessageType.MethodCall,
-      path: '/org/freedesktop/DBus',
+      objectPath: '/org/freedesktop/DBus',
       interfaceName: 'org.freedesktop.DBus',
       memberName: 'Hello',
       serial: 1,
@@ -84,7 +84,7 @@ test('parse messages of all types', () => {
     },
     {
       messageType: MessageType.Signal,
-      path: '/org/freedesktop/DBus',
+      objectPath: '/org/freedesktop/DBus',
       interfaceName: 'org.freedesktop.DBus',
       memberName: 'NameAcquired',
       serial: 2,
@@ -136,13 +136,13 @@ test('parse messages of all types', () => {
 
 test('serialize messages of all types and parse them again', () => {
   const messages: readonly Message[] = [
-    {messageType: MessageType.MethodCall, path: '/', memberName: 'foo', serial: 42},
-    {messageType: MessageType.MethodCall, path: '/', memberName: 'foo', serial: 42, noReplyExpected: true},
-    {messageType: MessageType.MethodCall, path: '/', memberName: 'foo', serial: 42, noAutoStart: true},
-    {messageType: MessageType.MethodCall, path: '/', memberName: 'foo', serial: 42, allowInteractiveAuthorization: true},
+    {messageType: MessageType.MethodCall, objectPath: '/', memberName: 'foo', serial: 42},
+    {messageType: MessageType.MethodCall, objectPath: '/', memberName: 'foo', serial: 42, noReplyExpected: true},
+    {messageType: MessageType.MethodCall, objectPath: '/', memberName: 'foo', serial: 42, noAutoStart: true},
+    {messageType: MessageType.MethodCall, objectPath: '/', memberName: 'foo', serial: 42, allowInteractiveAuthorization: true},
     {
       messageType: MessageType.MethodCall,
-      path: '/',
+      objectPath: '/',
       interfaceName: 'foo',
       memberName: 'bar',
       serial: 42,
@@ -184,10 +184,10 @@ test('serialize messages of all types and parse them again', () => {
       unixFds: 123,
       body: 'hello',
     },
-    {messageType: MessageType.Signal, path: '/', interfaceName: 'foo', memberName: 'bar', serial: 42},
+    {messageType: MessageType.Signal, objectPath: '/', interfaceName: 'foo', memberName: 'bar', serial: 42},
     {
       messageType: MessageType.Signal,
-      path: '/',
+      objectPath: '/',
       interfaceName: 'foo',
       memberName: 'bar',
       serial: 42,

@@ -8,7 +8,7 @@ import {
 } from 'd-bus-type-system';
 
 export enum HeaderFieldCode {
-  Path = 1,
+  ObjectPath = 1,
   InterfaceName = 2,
   MemberName = 3,
   ErrorName = 4,
@@ -27,7 +27,7 @@ export function getHeaderField<
   headerFieldCode: THeaderFieldCode,
   required: TRequired
 ): THeaderFieldCode extends
-  | HeaderFieldCode.Path
+  | HeaderFieldCode.ObjectPath
   | HeaderFieldCode.InterfaceName
   | HeaderFieldCode.MemberName
   | HeaderFieldCode.ErrorName
@@ -67,7 +67,7 @@ export function getHeaderField(
   const value = headerField[1][1];
 
   switch (headerFieldCode) {
-    case HeaderFieldCode.Path: {
+    case HeaderFieldCode.ObjectPath: {
       assertType(objectPathType, value);
 
       return value;

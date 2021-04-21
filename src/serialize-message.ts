@@ -76,8 +76,8 @@ export function serializeMessage(message: Message): ArrayBuffer {
     case MessageType.MethodCall:
     case MessageType.Signal: {
       headerFields.push([
-        HeaderFieldCode.Path,
-        [serializeType(objectPathType), message.path],
+        HeaderFieldCode.ObjectPath,
+        [serializeType(objectPathType), message.objectPath],
       ]);
 
       if (message.interfaceName !== undefined) {
