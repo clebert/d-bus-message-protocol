@@ -39,27 +39,28 @@ npm install d-bus-message-protocol d-bus-type-system
 
 ```js
 import {MessageType, serializeMessage} from 'd-bus-message-protocol';
-import {stringType} from 'd-bus-type-system';
 
 const messageData = serializeMessage({
   messageType: MessageType.MethodCall,
-  path: '/com/example/DBus',
+  path: '/org/freedesktop/DBus',
+  interface: 'org.freedesktop.DBus',
   member: 'Hello',
-  serial: 42,
-  type: stringType,
-  body: 'hello',
+  serial: 1,
+  destination: 'org.freedesktop.DBus',
 });
 
 console.log(messageData);
 ```
 
 ```
-6c 01 00 01  0a 00 00 00  2a 00 00 00  36 00 00 00
-08 01 67 00  01 73 00 00  01 01 6f 00  11 00 00 00
-2f 63 6f 6d  2f 65 78 61  6d 70 6c 65  2f 44 42 75
-73 00 00 00  00 00 00 00  03 01 73 00  05 00 00 00
-48 65 6c 6c  6f 00 00 00  05 00 00 00  68 65 6c 6c
-6f 00
+6c 01 00 01  00 00 00 00  01 00 00 00  6e 00 00 00
+06 01 73 00  14 00 00 00  6f 72 67 2e  66 72 65 65
+64 65 73 6b  74 6f 70 2e  44 42 75 73  00 00 00 00
+01 01 6f 00  15 00 00 00  2f 6f 72 67  2f 66 72 65
+65 64 65 73  6b 74 6f 70  2f 44 42 75  73 00 00 00
+02 01 73 00  14 00 00 00  6f 72 67 2e  66 72 65 65
+64 65 73 6b  74 6f 70 2e  44 42 75 73  00 00 00 00
+03 01 73 00  05 00 00 00  48 65 6c 6c  6f 00 00 00
 ```
 
 ### Parse a hello message
@@ -76,14 +77,14 @@ console.log(JSON.stringify(messages));
 [
   {
     "messageType": 1,
-    "path": "/com/example/DBus",
+    "path": "/org/freedesktop/DBus",
+    "interface": "org.freedesktop.DBus",
     "member": "Hello",
-    "serial": 42,
+    "serial": 1,
     "noReplyExpected": false,
     "noAutoStart": false,
     "allowInteractiveAuthorization": false,
-    "type": {"typeCode": "s", "bytePadding": 4},
-    "body": "hello"
+    "destination": "org.freedesktop.DBus"
   }
 ]
 ```
