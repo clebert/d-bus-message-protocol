@@ -80,7 +80,7 @@ test('parse messages of all types', () => {
       destination: ':1.259',
       sender: 'org.freedesktop.DBus',
       types: [stringType],
-      body: [':1.259'],
+      args: [':1.259'],
     },
     {
       messageType: MessageType.Signal,
@@ -94,7 +94,7 @@ test('parse messages of all types', () => {
       destination: ':1.259',
       sender: 'org.freedesktop.DBus',
       types: [stringType],
-      body: [':1.259'],
+      args: [':1.259'],
     },
   ]);
 
@@ -129,7 +129,7 @@ test('parse messages of all types', () => {
       destination: ':not.active.yet',
       sender: 'org.freedesktop.DBus',
       types: [stringType],
-      body: ['Client tried to send a message other than Hello without being registered'],
+      args: ['Client tried to send a message other than Hello without being registered'],
     },
   ]);
 });
@@ -153,7 +153,7 @@ test('serialize messages of all types and parse them again', () => {
       sender: 'qux',
       types: [stringType, stringType],
       unixFds: 123,
-      body: ['hello', 'world'],
+      args: ['hello', 'world'],
     },
     {messageType: MessageType.MethodReturn, replySerial: 42, serial: 85},
     {
@@ -167,7 +167,7 @@ test('serialize messages of all types and parse them again', () => {
       sender: 'bar',
       types: [stringType, stringType],
       unixFds: 123,
-      body: ['hello', 'world'],
+      args: ['hello', 'world'],
     },
     {messageType: MessageType.Error, errorName: 'foo', replySerial: 42, serial: 85},
     {
@@ -182,7 +182,7 @@ test('serialize messages of all types and parse them again', () => {
       sender: 'bar',
       types: [stringType, stringType],
       unixFds: 123,
-      body: ['hello', 'world'],
+      args: ['hello', 'world'],
     },
     {messageType: MessageType.Signal, objectPath: '/', interfaceName: 'foo', memberName: 'bar', serial: 42},
     {
@@ -198,7 +198,7 @@ test('serialize messages of all types and parse them again', () => {
       sender: 'qux',
       types: [stringType, stringType],
       unixFds: 123,
-      body: ['hello', 'world'],
+      args: ['hello', 'world'],
     },
   ];
 

@@ -26,7 +26,7 @@ export function serializeMessage(message: Message): ArrayBuffer {
     sender,
     types,
     unixFds,
-    body,
+    args,
   } = message;
 
   const messageWriter = new BufferWriter({littleEndian: true});
@@ -38,7 +38,7 @@ export function serializeMessage(message: Message): ArrayBuffer {
 
   const bodyWriter = new BufferWriter({littleEndian: true});
 
-  types?.forEach((type, index) => marshal(bodyWriter, type, body?.[index]));
+  types?.forEach((type, index) => marshal(bodyWriter, type, args?.[index]));
 
   const headerFields: [number, VariantValue][] = [];
 

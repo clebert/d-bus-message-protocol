@@ -52,7 +52,7 @@ export interface AbstractMessage {
   readonly sender?: string;
   readonly types?: readonly [CompleteType, ...CompleteType[]];
   readonly unixFds?: number;
-  readonly body?: readonly [unknown, ...unknown[]];
+  readonly args?: readonly [unknown, ...unknown[]];
 }
 
 export enum MessageType {
@@ -103,7 +103,7 @@ export function parseMessage(messageReader: BufferReader): Message {
 
   const {byteOffset} = messageReader;
   const types = signature ? parseTypes(signature) : undefined;
-  const body = types?.map((type) => unmarshal(messageReader, type));
+  const args = types?.map((type) => unmarshal(messageReader, type));
 
   if (bodyByteLength !== messageReader.byteOffset - byteOffset) {
     throw new Error('Invalid length in bytes of the message body.');
@@ -124,7 +124,7 @@ export function parseMessage(messageReader: BufferReader): Message {
     sender: getHeaderField(headerFields, HeaderFieldCode.Sender, false),
     types,
     unixFds: getHeaderField(headerFields, HeaderFieldCode.UnixFds, false),
-    body: body as any,
+    args: args as any,
   };
 
   switch (messageType) {
