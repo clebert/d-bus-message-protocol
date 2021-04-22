@@ -79,8 +79,8 @@ test('parse messages of all types', () => {
       allowInteractiveAuthorization: false,
       destination: ':1.259',
       sender: 'org.freedesktop.DBus',
-      type: stringType,
-      body: ':1.259',
+      types: [stringType],
+      body: [':1.259'],
     },
     {
       messageType: MessageType.Signal,
@@ -93,8 +93,8 @@ test('parse messages of all types', () => {
       allowInteractiveAuthorization: false,
       destination: ':1.259',
       sender: 'org.freedesktop.DBus',
-      type: stringType,
-      body: ':1.259',
+      types: [stringType],
+      body: [':1.259'],
     },
   ]);
 
@@ -128,8 +128,8 @@ test('parse messages of all types', () => {
       allowInteractiveAuthorization: false,
       destination: ':not.active.yet',
       sender: 'org.freedesktop.DBus',
-      type: stringType,
-      body: 'Client tried to send a message other than Hello without being registered',
+      types: [stringType],
+      body: ['Client tried to send a message other than Hello without being registered'],
     },
   ]);
 });
@@ -151,9 +151,9 @@ test('serialize messages of all types and parse them again', () => {
       allowInteractiveAuthorization: true,
       destination: 'baz',
       sender: 'qux',
-      type: stringType,
+      types: [stringType, stringType],
       unixFds: 123,
-      body: 'hello',
+      body: ['hello', 'world'],
     },
     {messageType: MessageType.MethodReturn, replySerial: 42, serial: 85},
     {
@@ -165,9 +165,9 @@ test('serialize messages of all types and parse them again', () => {
       allowInteractiveAuthorization: true,
       destination: 'foo',
       sender: 'bar',
-      type: stringType,
+      types: [stringType, stringType],
       unixFds: 123,
-      body: 'hello',
+      body: ['hello', 'world'],
     },
     {messageType: MessageType.Error, errorName: 'foo', replySerial: 42, serial: 85},
     {
@@ -180,9 +180,9 @@ test('serialize messages of all types and parse them again', () => {
       allowInteractiveAuthorization: true,
       destination: 'foo',
       sender: 'bar',
-      type: stringType,
+      types: [stringType, stringType],
       unixFds: 123,
-      body: 'hello',
+      body: ['hello', 'world'],
     },
     {messageType: MessageType.Signal, objectPath: '/', interfaceName: 'foo', memberName: 'bar', serial: 42},
     {
@@ -196,9 +196,9 @@ test('serialize messages of all types and parse them again', () => {
       allowInteractiveAuthorization: true,
       destination: 'baz',
       sender: 'qux',
-      type: stringType,
+      types: [stringType, stringType],
       unixFds: 123,
-      body: 'hello',
+      body: ['hello', 'world'],
     },
   ];
 

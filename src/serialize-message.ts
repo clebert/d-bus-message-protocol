@@ -24,7 +24,7 @@ export function serializeMessage(message: Message): ArrayBuffer {
     allowInteractiveAuthorization,
     destination,
     sender,
-    type,
+    types,
     unixFds,
     body,
   } = message;
@@ -38,38 +38,27 @@ export function serializeMessage(message: Message): ArrayBuffer {
 
   const bodyWriter = new BufferWriter({littleEndian: true});
 
-  if (type) {
-    marshal(bodyWriter, type, body);
-  }
+  types?.forEach((type, index) => marshal(bodyWriter, type, body?.[index]));
 
   const headerFields: [number, VariantValue][] = [];
 
   if (destination !== undefined) {
-    headerFields.push([
-      HeaderFieldCode.Destination,
-      [serializeType(stringType), destination],
-    ]);
+    headerFields.push([HeaderFieldCode.Destination, [stringType, destination]]);
   }
 
   if (sender !== undefined) {
-    headerFields.push([
-      HeaderFieldCode.Sender,
-      [serializeType(stringType), sender],
-    ]);
+    headerFields.push([HeaderFieldCode.Sender, [stringType, sender]]);
   }
 
-  if (type !== undefined) {
+  if (types !== undefined) {
     headerFields.push([
       HeaderFieldCode.Signature,
-      [serializeType(signatureType), serializeType(type)],
+      [signatureType, types.map(serializeType).join('')],
     ]);
   }
 
   if (unixFds !== undefined) {
-    headerFields.push([
-      HeaderFieldCode.UnixFds,
-      [serializeType(uint32Type), unixFds],
-    ]);
+    headerFields.push([HeaderFieldCode.UnixFds, [uint32Type, unixFds]]);
   }
 
   switch (message.messageType) {
@@ -77,19 +66,19 @@ export function serializeMessage(message: Message): ArrayBuffer {
     case MessageType.Signal: {
       headerFields.push([
         HeaderFieldCode.ObjectPath,
-        [serializeType(objectPathType), message.objectPath],
+        [objectPathType, message.objectPath],
       ]);
 
       if (message.interfaceName !== undefined) {
         headerFields.push([
           HeaderFieldCode.InterfaceName,
-          [serializeType(stringType), message.interfaceName],
+          [stringType, message.interfaceName],
         ]);
       }
 
       headerFields.push([
         HeaderFieldCode.MemberName,
-        [serializeType(stringType), message.memberName],
+        [stringType, message.memberName],
       ]);
 
       break;
@@ -97,7 +86,7 @@ export function serializeMessage(message: Message): ArrayBuffer {
     case MessageType.MethodReturn: {
       headerFields.push([
         HeaderFieldCode.ReplySerial,
-        [serializeType(uint32Type), message.replySerial],
+        [uint32Type, message.replySerial],
       ]);
 
       break;
@@ -105,12 +94,12 @@ export function serializeMessage(message: Message): ArrayBuffer {
     case MessageType.Error: {
       headerFields.push([
         HeaderFieldCode.ErrorName,
-        [serializeType(stringType), message.errorName],
+        [stringType, message.errorName],
       ]);
 
       headerFields.push([
         HeaderFieldCode.ReplySerial,
-        [serializeType(uint32Type), message.replySerial],
+        [uint32Type, message.replySerial],
       ]);
 
       break;
@@ -140,10 +129,7 @@ export function serializeMessage(message: Message): ArrayBuffer {
   );
 
   messageWriter.align(8);
-
-  if (type) {
-    messageWriter.writeBytes(bodyWriter.buffer);
-  }
+  messageWriter.writeBytes(bodyWriter.buffer);
 
   return messageWriter.buffer;
 }

@@ -69,24 +69,6 @@ console.log(messageData);
 import {parseMessages} from 'd-bus-message-protocol';
 
 const messages = parseMessages(messageData);
-
-console.log(JSON.stringify(messages));
-```
-
-```json
-[
-  {
-    "messageType": 1,
-    "objectPath": "/org/freedesktop/DBus",
-    "interfaceName": "org.freedesktop.DBus",
-    "memberName": "Hello",
-    "serial": 1,
-    "noReplyExpected": false,
-    "noAutoStart": false,
-    "allowInteractiveAuthorization": false,
-    "destination": "org.freedesktop.DBus"
-  }
-]
 ```
 
 ---

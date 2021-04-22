@@ -11,8 +11,4 @@ const messageData = serializeMessage({
   destination: 'org.freedesktop.DBus',
 });
 
-console.log(messageData);
-
-const messages = parseMessages(messageData);
-
-console.log(JSON.stringify(messages));
+parseMessages(messageData);
