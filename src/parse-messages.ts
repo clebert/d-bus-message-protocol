@@ -1,5 +1,6 @@
 import {BufferReader} from 'd-bus-type-system';
-import {Message, parseMessage} from './parse-message';
+import type {Message} from './parse-message.js';
+import {parseMessage} from './parse-message.js';
 
 export function parseMessages(messageData: ArrayBuffer): readonly Message[] {
   const messages: Message[] = [];
@@ -13,12 +14,12 @@ export function parseMessages(messageData: ArrayBuffer): readonly Message[] {
 
     const endianness = String.fromCharCode(new Uint8Array(messageData)[0] ?? 0);
 
-    if (endianness !== 'l' && endianness !== 'B') {
+    if (endianness !== `l` && endianness !== `B`) {
       break;
     }
 
     messageReader = new BufferReader(messageData, {
-      littleEndian: endianness === 'l',
+      littleEndian: endianness === `l`,
     });
 
     messages.push(parseMessage(messageReader));

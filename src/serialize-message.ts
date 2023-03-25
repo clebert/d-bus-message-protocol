@@ -1,6 +1,6 @@
+import type {VariantValue} from 'd-bus-type-system';
 import {
   BufferWriter,
-  VariantValue,
   arrayType,
   marshal,
   objectPathType,
@@ -12,8 +12,9 @@ import {
   uint8Type,
   variantType,
 } from 'd-bus-type-system';
-import {HeaderFieldCode} from './get-header-field';
-import {Flag, Message, MessageType} from './parse-message';
+import {HeaderFieldCode} from './get-header-field.js';
+import type {Message} from './parse-message.js';
+import {Flag, MessageType} from './parse-message.js';
 
 export function serializeMessage(message: Message): ArrayBuffer {
   const {
@@ -53,7 +54,7 @@ export function serializeMessage(message: Message): ArrayBuffer {
   if (types !== undefined) {
     headerFields.push([
       HeaderFieldCode.Signature,
-      [signatureType, types.map(serializeType).join('')],
+      [signatureType, types.map(serializeType).join(``)],
     ]);
   }
 
@@ -115,17 +116,17 @@ export function serializeMessage(message: Message): ArrayBuffer {
       uint8Type,
       uint32Type,
       uint32Type,
-      arrayType(structType(uint8Type, variantType))
+      arrayType(structType(uint8Type, variantType)),
     ),
     [
-      'l'.charCodeAt(0),
+      `l`.charCodeAt(0),
       messageType,
       flags,
       1,
       bodyWriter.buffer.byteLength,
       serial,
       headerFields,
-    ]
+    ],
   );
 
   messageWriter.align(8);

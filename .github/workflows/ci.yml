@@ -1,24 +1,23 @@
-name: CI
-on: [push, pull_request]
-
 jobs:
-  ci:
+  CI:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Set Node.js version
-        run: echo NODE_VERSION=$(cat .node-version) >> $GITHUB_ENV
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Run CI checks
-        run: npm run ci
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      with:
+        node-version-file: .node-version
+    - uses: bahmutov/npm-install@v1
+    - run: npm run ci
+    - env:
+        NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+      if: ${{ github.event_name == 'release' }}
+      run: npm config set //registry.npmjs.org/:_authToken $NPM_AUTH_TOKEN
+    - if: ${{ github.event_name == 'release' }}
+      run: npm publish
+name: CI
+on:
+  pull_request: {}
+  push: {}
+  release:
+    types:
+    - published

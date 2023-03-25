@@ -1,14 +1,16 @@
 {
   "bracketSpacing": false,
-  "proseWrap": "always",
-  "quoteProps": "consistent",
-  "singleQuote": true,
   "overrides": [
     {
-      "files": "*.test.ts",
+      "files": "**/*.test.ts",
       "options": {
         "printWidth": 140
       }
     }
-  ]
+  ],
+  "printWidth": 80,
+  "proseWrap": "always",
+  "quoteProps": "consistent",
+  "singleQuote": true,
+  "trailingComma": "all"
 }

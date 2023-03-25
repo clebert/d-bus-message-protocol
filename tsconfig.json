@@ -1,19 +1,17 @@
 {
   "compilerOptions": {
-    "declaration": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "lib": ["ES2020", "DOM"],
-    "module": "ESNext",
-    "moduleResolution": "Node",
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitReturns": true,
-    "noPropertyAccessFromIndexSignature": false,
-    "noUncheckedIndexedAccess": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "strict": true,
-    "target": "ES2020"
+    "checkJs": true,
+    "noEmit": true,
+    "resolveJsonModule": true
   },
-  "include": ["src/**/*"]
+  "exclude": [
+    "coverage",
+    "lib"
+  ],
+  "extends": [
+    "./tsconfig.base.json"
+  ],
+  "include": [
+    "**/*"
+  ]
 }

@@ -1,5 +1,5 @@
+import type {VariantValue} from 'd-bus-type-system';
 import {
-  VariantValue,
   assertType,
   objectPathType,
   signatureType,
@@ -21,11 +21,11 @@ export enum HeaderFieldCode {
 
 export function getHeaderField<
   THeaderFieldCode extends HeaderFieldCode,
-  TRequired extends boolean
+  TRequired extends boolean,
 >(
   headerFields: readonly [number, VariantValue][],
   headerFieldCode: THeaderFieldCode,
-  required: TRequired
+  required: TRequired,
 ): THeaderFieldCode extends
   | HeaderFieldCode.ObjectPath
   | HeaderFieldCode.InterfaceName
@@ -48,16 +48,16 @@ export function getHeaderField<
 export function getHeaderField(
   headerFields: readonly [number, VariantValue][],
   headerFieldCode: HeaderFieldCode,
-  required: boolean
+  required: boolean,
 ): unknown {
   const headerField = headerFields.find(
-    (otherHeaderField) => otherHeaderField[0] === headerFieldCode
+    (otherHeaderField) => otherHeaderField[0] === headerFieldCode,
   );
 
   if (!headerField) {
     if (required) {
       throw new Error(
-        `Required header field with code ${headerFieldCode} is missing.`
+        `Required header field with code ${headerFieldCode} is missing.`,
       );
     }
 

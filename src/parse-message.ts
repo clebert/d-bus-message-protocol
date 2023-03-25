@@ -1,6 +1,5 @@
+import type {BufferReader, CompleteType} from 'd-bus-type-system';
 import {
-  BufferReader,
-  CompleteType,
   arrayType,
   assertType,
   parseTypes,
@@ -10,7 +9,7 @@ import {
   unmarshal,
   variantType,
 } from 'd-bus-type-system';
-import {HeaderFieldCode, getHeaderField} from './get-header-field';
+import {HeaderFieldCode, getHeaderField} from './get-header-field.js';
 
 export type Message =
   | MethodCallMessage
@@ -88,13 +87,13 @@ export function parseMessage(messageReader: BufferReader): Message {
   assertType(headerFieldsType, headerFields);
 
   if (version !== 1) {
-    throw new Error('Incompatible major protocol version.');
+    throw new Error(`Incompatible major protocol version.`);
   }
 
   const signature = getHeaderField(
     headerFields,
     HeaderFieldCode.Signature,
-    false
+    false,
   );
 
   if (bodyByteLength > 0) {
@@ -106,7 +105,7 @@ export function parseMessage(messageReader: BufferReader): Message {
   const args = types?.map((type) => unmarshal(messageReader, type));
 
   if (bodyByteLength !== messageReader.byteOffset - byteOffset) {
-    throw new Error('Invalid length in bytes of the message body.');
+    throw new Error(`Invalid length in bytes of the message body.`);
   }
 
   const message: AbstractMessage = {
@@ -114,12 +113,12 @@ export function parseMessage(messageReader: BufferReader): Message {
     noReplyExpected: Boolean(flags & Flag.NoReplyExpected),
     noAutoStart: Boolean(flags & Flag.NoAutoStart),
     allowInteractiveAuthorization: Boolean(
-      flags & Flag.AllowInteractiveAuthorization
+      flags & Flag.AllowInteractiveAuthorization,
     ),
     destination: getHeaderField(
       headerFields,
       HeaderFieldCode.Destination,
-      false
+      false,
     ),
     sender: getHeaderField(headerFields, HeaderFieldCode.Sender, false),
     types,
@@ -135,17 +134,17 @@ export function parseMessage(messageReader: BufferReader): Message {
         objectPath: getHeaderField(
           headerFields,
           HeaderFieldCode.ObjectPath,
-          true
+          true,
         ),
         interfaceName: getHeaderField(
           headerFields,
           HeaderFieldCode.InterfaceName,
-          false
+          false,
         ),
         memberName: getHeaderField(
           headerFields,
           HeaderFieldCode.MemberName,
-          true
+          true,
         ),
       };
     }
@@ -156,7 +155,7 @@ export function parseMessage(messageReader: BufferReader): Message {
         replySerial: getHeaderField(
           headerFields,
           HeaderFieldCode.ReplySerial,
-          true
+          true,
         ),
       };
     }
@@ -167,12 +166,12 @@ export function parseMessage(messageReader: BufferReader): Message {
         errorName: getHeaderField(
           headerFields,
           HeaderFieldCode.ErrorName,
-          true
+          true,
         ),
         replySerial: getHeaderField(
           headerFields,
           HeaderFieldCode.ReplySerial,
-          true
+          true,
         ),
       };
     }
@@ -183,21 +182,21 @@ export function parseMessage(messageReader: BufferReader): Message {
         objectPath: getHeaderField(
           headerFields,
           HeaderFieldCode.ObjectPath,
-          true
+          true,
         ),
         interfaceName: getHeaderField(
           headerFields,
           HeaderFieldCode.InterfaceName,
-          true
+          true,
         ),
         memberName: getHeaderField(
           headerFields,
           HeaderFieldCode.MemberName,
-          true
+          true,
         ),
       };
     }
   }
 
-  throw new Error('Invalid message type.');
+  throw new Error(`Invalid message type.`);
 }

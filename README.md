@@ -1,19 +1,5 @@
 # D-Bus message protocol
 
-[![][ci-badge]][ci-link] [![][version-badge]][version-link]
-[![][license-badge]][license-link] [![][types-badge]][types-link]
-
-[ci-badge]:
-  https://github.com/clebert/d-bus-message-protocol/workflows/CI/badge.svg
-[ci-link]: https://github.com/clebert/d-bus-message-protocol
-[version-badge]: https://badgen.net/npm/v/d-bus-message-protocol
-[version-link]: https://www.npmjs.com/package/d-bus-message-protocol
-[license-badge]: https://badgen.net/npm/license/d-bus-message-protocol
-[license-link]:
-  https://github.com/clebert/d-bus-message-protocol/blob/master/LICENSE
-[types-badge]: https://badgen.net/npm/types/d-bus-message-protocol
-[types-link]: https://github.com/clebert/d-bus-message-protocol
-
 > A TypeScript implementation of the D-Bus message protocol.
 
 ## Installation
@@ -42,11 +28,11 @@ import {MessageType, serializeMessage} from 'd-bus-message-protocol';
 
 const messageData = serializeMessage({
   messageType: MessageType.MethodCall,
-  objectPath: '/org/freedesktop/DBus',
-  interfaceName: 'org.freedesktop.DBus',
-  memberName: 'Hello',
+  objectPath: `/org/freedesktop/DBus`,
+  interfaceName: `org.freedesktop.DBus`,
+  memberName: `Hello`,
   serial: 1,
-  destination: 'org.freedesktop.DBus',
+  destination: `org.freedesktop.DBus`,
 });
 
 console.log(messageData);
@@ -70,8 +56,3 @@ import {parseMessages} from 'd-bus-message-protocol';
 
 const messages = parseMessages(messageData);
 ```
-
----
-
-Copyright (c) 2021, Clemens Akens. Released under the terms of the
-[MIT License](https://github.com/clebert/d-bus-message-protocol/blob/master/LICENSE).
