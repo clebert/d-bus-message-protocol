@@ -15,7 +15,8 @@
     "lib"
   ],
   "scripts": {
-    "ci": "run-p compile:check compile:emit format:check lint test",
+    "ci": "run-p compile:emit format:check lint test",
+    "postci": "npm run compile:check",
     "compile:check": "tsc",
     "compile:emit": "tsc --project tsconfig.emit.json",
     "format:check": "prettier --check .",
