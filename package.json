@@ -1,6 +1,6 @@
 {
   "name": "d-bus-message-protocol",
-  "version": "0.5.0",
+  "version": "1.0.0",
   "description": "A TypeScript implementation of the D-Bus message protocol.",
   "repository": {
     "type": "git",
