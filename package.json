@@ -42,7 +42,7 @@
     "typescript": "^5.0.2"
   },
   "peerDependencies": {
-    "d-bus-type-system": "^0.14.0"
+    "d-bus-type-system": "^1.0.0"
   },
   "wallaby": {
     "env": {
