@@ -9,4 +9,4 @@ const messageData = serializeMessage({
   destination: `org.freedesktop.DBus`,
 });
 
-parseMessages(messageData);
+console.log(parseMessages(messageData));
