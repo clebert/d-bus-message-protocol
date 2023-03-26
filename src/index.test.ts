@@ -1,10 +1,11 @@
-import {TextDecoder, TextEncoder} from 'util';
-import {expect, test} from '@jest/globals';
-import {stringType} from 'd-bus-type-system';
 import type {Message} from './parse-message.js';
+
 import {MessageType} from './parse-message.js';
 import {parseMessages} from './parse-messages.js';
 import {serializeMessage} from './serialize-message.js';
+import {expect, test} from '@jest/globals';
+import {stringType} from 'd-bus-type-system';
+import {TextDecoder, TextEncoder} from 'util';
 
 global.TextDecoder = TextDecoder as any;
 global.TextEncoder = TextEncoder;

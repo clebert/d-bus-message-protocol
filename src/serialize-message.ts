@@ -1,4 +1,8 @@
+import type {Message} from './parse-message.js';
 import type {VariantValue} from 'd-bus-type-system';
+
+import {HeaderFieldCode} from './get-header-field.js';
+import {Flag, MessageType} from './parse-message.js';
 import {
   BufferWriter,
   arrayType,
@@ -12,9 +16,6 @@ import {
   uint8Type,
   variantType,
 } from 'd-bus-type-system';
-import {HeaderFieldCode} from './get-header-field.js';
-import type {Message} from './parse-message.js';
-import {Flag, MessageType} from './parse-message.js';
 
 export function serializeMessage(message: Message): ArrayBuffer {
   const {

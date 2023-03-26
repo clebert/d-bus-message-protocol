@@ -1,4 +1,6 @@
 import type {BufferReader, CompleteType} from 'd-bus-type-system';
+
+import {HeaderFieldCode, getHeaderField} from './get-header-field.js';
 import {
   arrayType,
   assertType,
@@ -9,7 +11,6 @@ import {
   unmarshal,
   variantType,
 } from 'd-bus-type-system';
-import {HeaderFieldCode, getHeaderField} from './get-header-field.js';
 
 export type Message =
   | MethodCallMessage

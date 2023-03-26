@@ -1,6 +1,7 @@
-import {BufferReader} from 'd-bus-type-system';
 import type {Message} from './parse-message.js';
+
 import {parseMessage} from './parse-message.js';
+import {BufferReader} from 'd-bus-type-system';
 
 export function parseMessages(messageData: ArrayBuffer): readonly Message[] {
   const messages: Message[] = [];

@@ -1,4 +1,5 @@
 import type {VariantValue} from 'd-bus-type-system';
+
 import {
   assertType,
   objectPathType,
