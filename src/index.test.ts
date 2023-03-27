@@ -134,17 +134,42 @@ test(`parse messages of all types`, () => {
       destination: `:not.active.yet`,
       sender: `org.freedesktop.DBus`,
       types: [stringType],
-      args: [`Client tried to send a message other than Hello without being registered`],
+      args: [
+        `Client tried to send a message other than Hello without being registered`,
+      ],
     },
   ]);
 });
 
 test(`serialize messages of all types and parse them again`, () => {
   const messages: readonly Message[] = [
-    {messageType: MessageType.MethodCall, objectPath: `/`, memberName: `foo`, serial: 42},
-    {messageType: MessageType.MethodCall, objectPath: `/`, memberName: `foo`, serial: 42, noReplyExpected: true},
-    {messageType: MessageType.MethodCall, objectPath: `/`, memberName: `foo`, serial: 42, noAutoStart: true},
-    {messageType: MessageType.MethodCall, objectPath: `/`, memberName: `foo`, serial: 42, allowInteractiveAuthorization: true},
+    {
+      messageType: MessageType.MethodCall,
+      objectPath: `/`,
+      memberName: `foo`,
+      serial: 42,
+    },
+    {
+      messageType: MessageType.MethodCall,
+      objectPath: `/`,
+      memberName: `foo`,
+      serial: 42,
+      noReplyExpected: true,
+    },
+    {
+      messageType: MessageType.MethodCall,
+      objectPath: `/`,
+      memberName: `foo`,
+      serial: 42,
+      noAutoStart: true,
+    },
+    {
+      messageType: MessageType.MethodCall,
+      objectPath: `/`,
+      memberName: `foo`,
+      serial: 42,
+      allowInteractiveAuthorization: true,
+    },
     {
       messageType: MessageType.MethodCall,
       objectPath: `/`,
@@ -160,7 +185,11 @@ test(`serialize messages of all types and parse them again`, () => {
       unixFds: 123,
       args: [`hello`, `world`],
     },
-    {messageType: MessageType.MethodReturn, replySerial: 42, serial: 85},
+    {
+      messageType: MessageType.MethodReturn,
+      replySerial: 42,
+      serial: 85,
+    },
     {
       messageType: MessageType.MethodReturn,
       replySerial: 42,
@@ -174,7 +203,12 @@ test(`serialize messages of all types and parse them again`, () => {
       unixFds: 123,
       args: [`hello`, `world`],
     },
-    {messageType: MessageType.Error, errorName: `foo`, replySerial: 42, serial: 85},
+    {
+      messageType: MessageType.Error,
+      errorName: `foo`,
+      replySerial: 42,
+      serial: 85,
+    },
     {
       messageType: MessageType.Error,
       errorName: `foo`,
@@ -189,7 +223,13 @@ test(`serialize messages of all types and parse them again`, () => {
       unixFds: 123,
       args: [`hello`, `world`],
     },
-    {messageType: MessageType.Signal, objectPath: `/`, interfaceName: `foo`, memberName: `bar`, serial: 42},
+    {
+      messageType: MessageType.Signal,
+      objectPath: `/`,
+      interfaceName: `foo`,
+      memberName: `bar`,
+      serial: 42,
+    },
     {
       messageType: MessageType.Signal,
       objectPath: `/`,
@@ -253,6 +293,11 @@ test(`various message parsing errors`, () => {
   ).toThrow(new Error(`Invalid message type.`));
 
   expect(() =>
-    parseMessages(toBuffer(`6c 01 00 01  00 00 00 00  2a 00 00 00  0c 00 00 00`, `03 01 73 00  03 00 00 00  66 6f 6f 00  00 00 00 00`)),
+    parseMessages(
+      toBuffer(
+        `6c 01 00 01  00 00 00 00  2a 00 00 00  0c 00 00 00`,
+        `03 01 73 00  03 00 00 00  66 6f 6f 00  00 00 00 00`,
+      ),
+    ),
   ).toThrow(new Error(`Required header field with code 1 is missing.`));
 });
